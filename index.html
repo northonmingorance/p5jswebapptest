@@ -18,26 +18,28 @@
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
   <script>
-    function toggleFullScreen() {
-      const canvas = document.querySelector('canvas');
-      if (!document.fullscreenElement) {
-        canvas.requestFullscreen().catch(err => {
-          console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-        });
-      } else {
-        document.exitFullscreen();
-      }
-    }
+    let canvas;
+    let fullscreenButton;
 
     function setup() {
-      createCanvas(windowWidth, windowHeight);
-      canvas.addEventListener('click', toggleFullScreen);
+      canvas = createCanvas(windowWidth, windowHeight);
+      fullscreenButton = createButton('Toggle Fullscreen');
+      fullscreenButton.position(10, 10);
+      fullscreenButton.mousePressed(toggleFullscreen);
     }
 
     function draw() {
       background(220);
       fill(255, 0, 0);
       ellipse(width / 2, height / 2, 100, 100);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        canvas.elt.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
     }
   </script>
 </head>
