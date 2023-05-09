@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
   <style>
     html,
     body {
@@ -18,32 +17,31 @@
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
   <script>
-    let canvas;
-    let fullscreenButton;
+    function openFullscreenWindow() {
+      var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-    function setup() {
-      canvas = createCanvas(windowWidth, windowHeight);
-      fullscreenButton = createButton('Toggle Fullscreen');
-      fullscreenButton.position(10, 10);
-      fullscreenButton.mousePressed(toggleFullscreen);
+      var left = window.screenLeft || window.screenX || 0;
+      var top = window.screenTop || window.screenY || 0;
+
+      var features = `width=${width},height=${height},left=${left},top=${top}`;
+
+      window.open("your_page.html", "_blank", features);
     }
-
+  
+    function setup() {
+      createCanvas(windowWidth, windowHeight);
+    }
+  
     function draw() {
       background(220);
       fill(255, 0, 0);
       ellipse(width / 2, height / 2, 100, 100);
     }
-
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        canvas.elt.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
   </script>
 </head>
 <body>
+  <button onclick="openFullscreenWindow()">Open Fullscreen Window</button>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
