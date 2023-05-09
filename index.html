@@ -17,20 +17,20 @@
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
   <script>
-    function openFullscreenWindow() {
-      var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-      var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-      var left = window.screenLeft || window.screenX || 0;
-      var top = window.screenTop || window.screenY || 0;
-
-      var features = `width=${width},height=${height},left=${left},top=${top}`;
-
-      window.open("your_page.html", "_blank", features);
+    function toggleFullScreen() {
+      const canvas = document.querySelector('canvas');
+      if (!document.fullscreenElement) {
+        canvas.requestFullscreen().catch(err => {
+          console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
     }
-  
+
     function setup() {
       createCanvas(windowWidth, windowHeight);
+      canvas.addEventListener('click', toggleFullScreen);
     }
   
     function draw() {
